@@ -1,4 +1,218 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: gray;
     border: 2px red solid;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr; /* cells placed left to right by default */
+    grid-template-rows: 1.5fr 1.5fr 3fr 1fr;
+    grid-template-areas: "title title title"
+        "controls win game"
+        "footer footer";
+    gap: 5px;
+}
+
+.title {
+    border: 2px red solid;
+    justify-self: span;
+    grid-area: title;
+    grid-column-start: 1;
+    grid-column-end: end;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    background-color: tan;
+}
+
+.controls {
+    border: 2px red solid;
+    grid-area: controls;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    background-color: cadetblue;
+}
+
+.win {
+    border: 2px red solid;
+    grid-area: win;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    background-color: whitesmoke;
+}
+
+.game-board {
+    border: 2px red solid;
+    grid-area: game;
+    grid-row-start: 3;
+    grid-row-end:4;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    background-color: goldenrod;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.help {
+    border: 2px red solid;
+    display: flex;
+    gap: 2px;
+}
+
+.menu {
+    border: 2px red solid;
+    display: flex;
+    gap: 2px;
+}
+
+.board {
+    border: 2px red solid;
+    display: grid;
+    width: 200px;
+    height: 200px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* cells placed left to right by default */
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    padding: 8px;
+    gap: 3px;
+}
+
+#grid-1 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-2 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-3 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-4 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-5 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-6 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-7 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-8 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-9 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-10 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-11 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-12 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-13 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-14 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-15 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-16 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-17 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-18 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-19 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-20 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-21 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-22 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-23 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-24 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+#grid-25 {
+    border: 2px red solid;
+    align-items: center;
+}
+
+.footer {
+    border: 2px red solid;
+    justify-self: span;
+    grid-area: footer;
+    grid-row-start: 4;
+    grid-row-end: end;
+    grid-column-start: 1;
+    grid-column-end: end;
+    background-color: firebrick;
 }
