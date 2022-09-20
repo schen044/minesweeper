@@ -7,7 +7,7 @@ body {
     border: 2px red solid;
     display: grid;
     grid-template-columns: 2fr 2fr 2fr; /* cells placed left to right by default */
-    grid-template-rows: 1.5fr 1.5fr 3fr 1fr;
+    grid-template-rows: 1.5fr 0.75fr 3fr 1fr;
     grid-template-areas: "title title title"
         "controls win game"
         "footer footer";
@@ -81,47 +81,47 @@ body {
     gap: 3px;
 }
 
-#grid-1 {
+#grid-01 {
     border: 2px red solid;
     align-items: center;
 }
 
-#grid-2 {
+#grid-02 {
     border: 2px red solid;
     align-items: center;
 }
 
-#grid-3 {
+#grid-03 {
     border: 2px red solid;
     align-items: center;
 }
 
-#grid-4 {
+#grid-04 {
     border: 2px red solid;
     align-items: center;
 }
 
-#grid-5 {
+#grid-05 {
     border: 2px red solid;
     align-items: center;
 }
 
-#grid-6 {
+#grid-06 {
     border: 2px red solid;
     align-items: center;
 }
 
-#grid-7 {
+#grid-07 {
     border: 2px red solid;
     align-items: center;
 }
 
-#grid-8 {
+#grid-08 {
     border: 2px red solid;
     align-items: center;
 }
 
-#grid-9 {
+#grid-09 {
     border: 2px red solid;
     align-items: center;
 }
