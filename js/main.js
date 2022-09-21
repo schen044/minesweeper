@@ -34,7 +34,7 @@ resetButtonEl.addEventListener('click', handleResetClick);
 //listen for left click to reveal
 boardEl.addEventListener('click', handleLeftClick);
 // //listen for right click to flag
-boardEl.addEventListener('contextmenu', handleRightClick);
+boardEl.addEventListener('contextmenu', flagTile);
 
 /*----- functions -----*/
 // initialization
@@ -47,7 +47,7 @@ function initialize() {
     // reset win state
     win = null;
     // render to DOM
-    //render();
+    render();
 }
 
 // reset
@@ -81,33 +81,53 @@ function generateBoard(arr, clickIdx) {
     // sets the location tag for 
     // each square to identify which rules
     // to use when revealing tiles
-    addSquareInfo(arr);
+    addTileInfo(arr);
 }
 
 // left click during gameplay
 function handleLeftClick(evt) {
     evt.preventDefault();
     // link the clicked square to index value to be used by board array
-    const clickIdx = (evt.target.id[5] + evt.target.id[6]) - 1;
+    const clickIdx = Number(evt.target.id[5] + evt.target.id[6]);
     // check if first click
     if (firstClick) {
         //console.log('firstClick is false');
         firstClick = false;
         generateBoard(gameBoard, clickIdx);
     }
+    // click on mine
     if (gameBoard[clickIdx].isMine) {
         win = false;
-        return;
+        render(clickIdx);
     }
-    console.log(evt, clickIdx);
+    // click on safe tile
+    else {
+        // reveal hints
+        reveal(clickIdx);
+        // check win - must be before render to set win state
+        checkWin();
+        // render to DOM
+        render(clickIdx);
+    }
+    // console log board
+    clog();
+    //console.log(evt, clickIdx);
 }
 
-// left click during gameplay
-function handleRightClick(evt) {
-        //console.log('right click clicked');
-        evt.preventDefault();
-        const clickIdx = (evt.target.id[5] + evt.target.id[6]) - 1;
+// right click during gameplay
+function flagTile(evt) {
+    //console.log('right click clicked');
+    evt.preventDefault();
+    const clickIdx = Number(evt.target.id[5] + evt.target.id[6]);
+    // if tile is already flagged and not revealed, unflag tile
+    if(gameBoard[clickIdx].flagged && !gameBoard[clickIdx].revealed)
+    {
+        gameBoard[clickIdx].flagged = false;
+    } 
+    else {
         gameBoard[clickIdx].flagged = true;
+    }
+    render(clickIdx);
 }
 
 // randomize mine positions
@@ -124,92 +144,173 @@ function shuffleBoard(arr) {
 
 // swap the position of two square objects
 function swap (arr, index1, index2) {
+    // temporary variable to store value so it's not lost
     let tempSquare = arr[index1];
     arr[index1] = arr[index2];
     arr[index2] = tempSquare;
 }
 
 // calculate adjacency hints and assign location types
-function addSquareInfo(arr) {
+function addTileInfo(arr) {
+    let adjacentArray;
     for (let i = 0; i < arr.length; i++) {
+        /* assign tile types */
         // upper left corner
         if (i === 0) {
             arr[i].tileType = 'topleft';
-            arr[i + 1].numAdjacent += 1;
-            arr[i + boardSize].numAdjacent += 1;
-            arr[i + 1 + boardSize].numAdjacent += 1;
             // upper right corner
         } else if (i === boardSize - 1) {
             arr[i].tileType = 'topright';
-            arr[i - 1].numAdjacent += 1;
-            arr[i + boardSize].numAdjacent += 1;
-            arr[i + boardSize - 1].numAdjacent += 1;
             // lower left corner
         } else if (i === boardSize * (boardSize - 1)) {
             arr[i].tileType = 'bottomleft';
-            arr[i + 1].numAdjacent += 1;
-            arr[i - boardSize].numAdjacent += 1;
-            arr[i + 1 - boardSize].numAdjacent += 1;
             // lower right corner
         } else if (i === (boardSize * boardSize) - 1) {
             arr[i].tileType = 'bottomright';
-            arr[i - 1].numAdjacent += 1;
-            arr[i - boardSize].numAdjacent += 1;
-            arr[i - 1 - boardSize].numAdjacent += 1;
             // top edge
         } else if (i < boardSize - 1) {
             arr[i].tileType = 'top';
-            arr[i - 1].numAdjacent += 1;
-            arr[i + boardSize].numAdjacent += 1;
-            arr[i - 1 + boardSize].numAdjacent += 1;
-            arr[i + 1].numAdjacent += 1;
-            arr[i + 1 + boardSize].numAdjacent += 1;
             // bottom edge
         } else if (i > boardSize * (boardSize - 1)) {
             arr[i].tileType = 'bottom';
-            arr[i - 1].numAdjacent += 1;
-            arr[i - boardSize].numAdjacent += 1;
-            arr[i - 1 - boardSize].numAdjacent += 1;
-            arr[i + 1].numAdjacent += 1;
-            arr[i - 1 - boardSize].numAdjacent += 1;
             // left edge
         } else if (i % boardSize === 0) {
             arr[i].tileType = 'left';
-            arr[i + 1].numAdjacent += 1;
-            arr[i - boardSize].numAdjacent += 1;
-            arr[i + 1 - boardSize].numAdjacent += 1;
-            arr[i + boardSize].numAdjacent += 1;
-            arr[i + 1 + boardSize].numAdjacent += 1;
             // right edge
         } else if (i % boardSize === 4) {
             arr[i].tileType = 'right';
-            arr[i - 1].numAdjacent += 1;
-            arr[i - boardSize].numAdjacent += 1;
-            arr[i - 1 - boardSize].numAdjacent += 1;
-            arr[i + boardSize].numAdjacent += 1;
-            arr[i - 1 + boardSize].numAdjacent += 1;
             // center
         } else {
             arr[i].tileType = 'center';
-            arr[i - boardSize - 1].numAdjacent += 1;
-            arr[i - boardSize].numAdjacent += 1;
-            arr[i + 1 - boardSize].numAdjacent += 1;
-            arr[i + boardSize].numAdjacent += 1;
-            arr[i + 1 + boardSize].numAdjacent += 1;
-            arr[i + boardSize -1].numAdjacent += 1;
-            arr[i + 1].numAdjacent += 1;
-            arr[i - 1].numAdjacent += 1;
+        }
+        // generate hints for tiles adjacent to mines
+        adjacentArray = getAdjTile(i);
+        if (arr[i].isMine) {
+            addAdjacent(adjacentArray);
         }
     }
 }
 
+// switch statement for adjacent squares
+// returns an array to iterate through for each function
+function getAdjTile (i) {
+    switch(gameBoard[i].tileType) {
+        case 'topleft':
+            return [i + 1, i + boardSize, i + boardSize + 1];
+        case 'topright':
+            return [ i - 1, i + boardSize, i + boardSize - 1];
+        case 'bottomleft':
+            return [ i + 1,  i - boardSize,  i - boardSize + 1];
+        case 'bottomright':
+            return [ i - 1,  i - boardSize,  i - boardSize - 1];
+        case 'top':
+            return [ i - 1,  i + boardSize - 1,  i + boardSize,  i + boardSize + 1,  i + 1];
+        case 'bottom':
+            return [ i - 1,  i - boardSize - 1,  i - boardSize,  i - boardSize + 1,  i + 1];
+            case 'left':
+                return [ i - boardSize,  i - boardSize + 1,  i + 1,  i + boardSize + 1,  i + boardSize];
+        case 'right':
+            return [ i - boardSize,  i - boardSize - 1,  i - 1,  i + boardSize - 1,  i + boardSize];
+        case 'center':
+            return [ i - boardSize - 1,  i - boardSize,  i + 1 - boardSize,  i + boardSize,  i + 1 + boardSize,  i + boardSize -1,  i + 1, i - 1];
+        default:
+            console.log('out of board range');
+            break;
+    }
+}
+
+// add one to numAdjacent for each adjacent tile for adjacent mine hints
+function addAdjacent(adjArr) {
+    adjArr.forEach(function(adjIdx) {
+        gameBoard[adjIdx].numAdjacent += 1;   
+    });
+}
+
+// reveal adjacent squares
+function reveal(clickIdx) {
+    let adjArray = getAdjTile(clickIdx);
+    if (!gameBoard[clickIdx].revealed) {
+        gameBoard[clickIdx].revealed = true;
+        if(gameBoard[clickIdx].numAdjacent === 0) {
+            adjArray.forEach(function(adjIdx) {
+                reveal(adjIdx);
+            })
+        }
+    }
+}
+
+// render game board to DOM
+function render(clickIndex) {
+    let clickIdxStr;
+    // clicked a mine, lost
+    if(win === false) {
+        clickIdxStr = indexToString(clickIndex);
+        showBomb();
+        document.getElementById(`grid-${clickIdxStr}`).textContent = '💥';
+        winMessageDisplayEl.innerHTML= '<h3>You Lose</h3>';
+    } else {
+        let idxStr;
+        // show safe tiles
+        gameBoard.forEach(function(tile, idx) {
+            idxStr = indexToString(idx);
+            if(tile.revealed && (!tile.ismine || !tile.flagged)) {
+                document.getElementById(`grid-${idxStr}`).textContent = gameBoard[idx].numAdjacent;
+            } else if(tile.flagged) {
+                document.getElementById(`grid-${idxStr}`).textContent = '🚩';
+            } else if(!tile.flagged) {
+                document.getElementById(`grid-${idxStr}`).textContent = '';
+            }})
+        }
+        if(win === true) {
+            showBomb();
+            winMessageDisplayEl.innerHTML= '<h3>You Win!</h3>';
+        }
+}
+
+function indexToString (idx) {
+    let tileIdx = idx.toString();
+    return tileIdx.padStart(2, '0');
+}
+
+function showBomb() {
+    gameBoard.forEach(function(tile, idx) {
+        let idxStr = indexToString(idx);
+        if(tile.isMine) {
+            document.getElementById(`grid-${idxStr}`).textContent = '💣';
+        }
+    })
+}
+
+function checkWin() {
+    let total = 0;
+    gameBoard.forEach(function(tile) {
+        if(tile.revealed) {
+            total += 1;
+        }
+        console.log(total);
+    })
+    if (total === gameBoard.length - numMines) {
+        win = true;
+    }
+}
+
+function clog() {
+    let mineStr = '';
+    for (let i = 0; i < 25; i++) {
+        if (gameBoard[i].isMine) {
+            mineStr += 'x';
+        }
+        else if (gameBoard[i].revealed) {
+            mineStr += 'R';
+        }
+        else {
+            mineStr += '' + gameBoard[i].numAdjacent
+        }
+        if ((i+1) % 5 === 0) {
+            mineStr += '\n'
+        }
+    }
+    console.log(mineStr)
+}
+
 initialize();
-if (win) {
-    winMessageDisplayEl.innerText = "You Won"
-}
-else if (win === false) {
-    winMessageDisplayEl.innerText = "You Lost"
-}
-else {
-    winMessageDisplayEl.innerText = '';
-}
