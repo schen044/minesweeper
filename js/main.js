@@ -24,7 +24,7 @@ let firstClick, gameBoard, win;
 // win message
 const winMessageDisplayEl = document.querySelector('.win');
 // reset button
-const resetButtonEl = document.getElementById('reset')
+const resetButtonEl = document.getElementById('reset');
 // board element
 const boardEl = document.querySelector('.board');
 
@@ -99,9 +99,8 @@ function handleLeftClick(evt) {
     if (gameBoard[clickIdx].isMine) {
         win = false;
         render(clickIdx);
-    }
-    // click on safe tile
-    else {
+        // click on safe tile
+    } else {
         // reveal hints
         reveal(clickIdx);
         // check win - must be before render to set win state
@@ -120,11 +119,10 @@ function flagTile(evt) {
     evt.preventDefault();
     const clickIdx = Number(evt.target.id[5] + evt.target.id[6]);
     // if tile is already flagged and not revealed, unflag tile
-    if(gameBoard[clickIdx].flagged && !gameBoard[clickIdx].revealed)
+    if (gameBoard[clickIdx].flagged && !gameBoard[clickIdx].revealed)
     {
         gameBoard[clickIdx].flagged = false;
-    } 
-    else {
+    } else {
         gameBoard[clickIdx].flagged = true;
     }
     render(clickIdx);
@@ -133,7 +131,7 @@ function flagTile(evt) {
 // randomize mine positions
 /* using the Fisher-Yates shuffle algorithm as found on stack overflow */
 function shuffleBoard(arr) {
-    for(let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         // randomly generate the index of the square the
         // current square will swap with
         let randomIdx = Math.floor(Math.random() * i);
@@ -143,7 +141,7 @@ function shuffleBoard(arr) {
 }
 
 // swap the position of two square objects
-function swap (arr, index1, index2) {
+function swap(arr, index1, index2) {
     // temporary variable to store value so it's not lost
     let tempSquare = arr[index1];
     arr[index1] = arr[index2];
@@ -223,7 +221,7 @@ function getAdjTile (i) {
 function addAdjacent(adjArr) {
     adjArr.forEach(function(adjIdx) {
         gameBoard[adjIdx].numAdjacent += 1;   
-    });
+    })
 }
 
 // reveal adjacent squares
@@ -231,7 +229,7 @@ function reveal(clickIdx) {
     let adjArray = getAdjTile(clickIdx);
     if (!gameBoard[clickIdx].revealed) {
         gameBoard[clickIdx].revealed = true;
-        if(gameBoard[clickIdx].numAdjacent === 0) {
+        if (gameBoard[clickIdx].numAdjacent === 0) {
             adjArray.forEach(function(adjIdx) {
                 reveal(adjIdx);
             })
@@ -243,7 +241,7 @@ function reveal(clickIdx) {
 function render(clickIndex) {
     let clickIdxStr;
     // clicked a mine, lost
-    if(win === false) {
+    if (win === false) {
         clickIdxStr = indexToString(clickIndex);
         showBomb();
         document.getElementById(`grid-${clickIdxStr}`).textContent = '💥';
@@ -253,38 +251,45 @@ function render(clickIndex) {
         // show safe tiles
         gameBoard.forEach(function(tile, idx) {
             idxStr = indexToString(idx);
-            if(tile.revealed && (!tile.ismine || !tile.flagged)) {
+            // show hints of tiles
+            if (tile.revealed && (!tile.ismine || !tile.flagged)) {
                 document.getElementById(`grid-${idxStr}`).textContent = gameBoard[idx].numAdjacent;
-            } else if(tile.flagged) {
+                // flag unflagged tile
+            } else if (tile.flagged) {
                 document.getElementById(`grid-${idxStr}`).textContent = '🚩';
-            } else if(!tile.flagged) {
+                // remove flag
+            } else if (!tile.flagged) {
                 document.getElementById(`grid-${idxStr}`).textContent = '';
             }})
         }
-        if(win === true) {
+        // revealed all safe tiles, won
+        if (win === true) {
             showBomb();
             winMessageDisplayEl.innerHTML= '<h3>You Win!</h3>';
         }
 }
 
-function indexToString (idx) {
+// convert index number to string for string interpolation
+function indexToString(idx) {
     let tileIdx = idx.toString();
     return tileIdx.padStart(2, '0');
 }
 
+// reveal location of all bombs
 function showBomb() {
     gameBoard.forEach(function(tile, idx) {
         let idxStr = indexToString(idx);
-        if(tile.isMine) {
+        if (tile.isMine) {
             document.getElementById(`grid-${idxStr}`).textContent = '💣';
         }
     })
 }
 
+// check if won
 function checkWin() {
     let total = 0;
     gameBoard.forEach(function(tile) {
-        if(tile.revealed) {
+        if (tile.revealed) {
             total += 1;
         }
         console.log(total);
@@ -294,23 +299,22 @@ function checkWin() {
     }
 }
 
+// debugger for checking state of game board
 function clog() {
     let mineStr = '';
     for (let i = 0; i < 25; i++) {
         if (gameBoard[i].isMine) {
             mineStr += 'x';
-        }
-        else if (gameBoard[i].revealed) {
+        } else if (gameBoard[i].revealed) {
             mineStr += 'R';
-        }
-        else {
-            mineStr += '' + gameBoard[i].numAdjacent
+        } else {
+            mineStr += '' + gameBoard[i].numAdjacent;
         }
         if ((i+1) % 5 === 0) {
-            mineStr += '\n'
+            mineStr += '\n';
         }
     }
-    console.log(mineStr)
+    console.log(mineStr);
 }
 
 initialize();
