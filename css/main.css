@@ -1,4 +1,5 @@
 * {
+    height: 100%;
     box-sizing: border-box;
 }
 
@@ -6,8 +7,8 @@ body {
     background-color: gray;
     border: 2px red solid;
     display: grid;
-    grid-template-columns: 2fr 2fr 2fr; /* cells placed left to right by default */
-    grid-template-rows: 1.5fr 0.75fr 3fr 1fr;
+    grid-template-columns: 2fr 2fr 2fr;
+    grid-template-rows: 1.5fr 0.75fr 2fr 0.25fr;
     grid-template-areas: "title title title"
         "controls win game"
         "footer footer";
@@ -43,6 +44,7 @@ body {
     grid-column-start: 2;
     grid-column-end: 4;
     background-color: whitesmoke;
+    height: 75px;
 }
 
 .game-board {
@@ -62,23 +64,30 @@ body {
     border: 2px red solid;
     display: flex;
     gap: 2px;
+    height: 30px;
 }
 
 .menu {
     border: 2px red solid;
     display: flex;
     gap: 2px;
+    height: 30px;
 }
 
 .board {
     border: 2px red solid;
     display: grid;
-    width: 200px;
-    height: 200px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* cells placed left to right by default */
+    width: 500px;
+    height: 500px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     padding: 8px;
     gap: 3px;
+}
+
+#grid-00 {
+    border: 2px red solid;
+    align-items: center;
 }
 
 #grid-01 {
@@ -197,11 +206,6 @@ body {
 }
 
 #grid-24 {
-    border: 2px red solid;
-    align-items: center;
-}
-
-#grid-25 {
     border: 2px red solid;
     align-items: center;
 }
