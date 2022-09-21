@@ -1,222 +1,228 @@
 * {
-    height: 100%;
     box-sizing: border-box;
+    font-family: Consolas, 'Liberation Mono', Menlo, Courier;
 }
 
 body {
-    background-color: gray;
-    border: 2px red solid;
+    background-color: whitesmoke;
     display: grid;
     grid-template-columns: 2fr 2fr 2fr;
-    grid-template-rows: 1.5fr 0.75fr 2fr 0.25fr;
-    grid-template-areas: "title title title"
-        "controls win game"
-        "footer footer";
-    gap: 5px;
+    grid-template-rows: 0.75fr 0.25fr 2fr 0.1fr;
+    grid-template-areas: 
+      "title title title"
+      "controls win game"
+      ". footer footer";
+     gap: 7px;
 }
 
 .title {
-    border: 2px red solid;
-    justify-self: span;
     grid-area: title;
     grid-column-start: 1;
     grid-column-end: end;
     grid-row-start: 1;
     grid-row-end: 2;
-    background-color: tan;
+    text-align: center;
+    padding-top: 1em;
 }
 
-.controls {
-    border: 2px red solid;
+.help {
     grid-area: controls;
-    grid-row-start: 2;
+    grid-row-start: 3;
     grid-row-end: 4;
     grid-column-start: 1;
     grid-column-end: 2;
-    background-color: cadetblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+#how-to {
+    border: 2px  black solid;
+    background-color: lightgrey;
+    border-bottom: 1px black dashed;
+    padding: 10px;
+}
+
+#control-text {
+    border: 2px  black solid;
+    background-color: lightgrey;
+    border-top: 1px black dashed;
+    padding: 10px;
 }
 
 .win {
-    border: 2px red solid;
     grid-area: win;
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 2;
-    grid-column-end: 4;
-    background-color: whitesmoke;
-    height: 75px;
+    grid-column-end: 3;
+    text-align: center;
 }
 
 .game-board {
-    border: 2px red solid;
+    border: 2px black solid;
     grid-area: game;
     grid-row-start: 3;
     grid-row-end:4;
     grid-column-start: 2;
-    grid-column-end: 4;
-    background-color: goldenrod;
+    grid-column-end: 3;
+    background-color: lightgray;
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-.help {
-    border: 2px red solid;
-    display: flex;
-    gap: 2px;
-    height: 30px;
+    padding:10px;
+    place-items: center;
 }
 
 .menu {
-    border: 2px red solid;
+    border: 2px  black solid;
     display: flex;
     gap: 2px;
-    height: 30px;
+    height: 40px;
+    padding: 5px;
 }
 
 .board {
-    border: 2px red solid;
+    border: 2px black solid;
     display: grid;
     width: 500px;
     height: 500px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    padding: 8px;
     gap: 3px;
+    font-size: xx-large;
+    text-align: center;
 }
 
 #grid-00 {
-    border: 2px red solid;
+    border: 2px black solid;
     align-items: center;
 }
 
 #grid-01 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-02 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-03 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-04 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-05 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-06 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-07 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-08 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-09 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-10 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-11 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-12 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-13 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-14 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-15 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-16 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-17 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-18 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-19 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-20 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-21 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-22 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-23 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 #grid-24 {
-    border: 2px red solid;
+    border: 2px  black solid;
     align-items: center;
 }
 
 .footer {
-    border: 2px red solid;
-    justify-self: span;
     grid-area: footer;
     grid-row-start: 4;
     grid-row-end: end;
-    grid-column-start: 1;
-    grid-column-end: end;
-    background-color: firebrick;
+    text-align: right;
 }
