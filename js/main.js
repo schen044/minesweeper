@@ -46,6 +46,10 @@ function initialize() {
     initBoardArray(numMines, boardSize)
     // reset win state
     win = null;
+    // reset win message
+    winMessageDisplayEl.innerHTML= '';
+    // reset reset button image
+    resetButtonEl.innerText = '🙂';
     // render to DOM
     render();
 }
@@ -242,9 +246,14 @@ function render(clickIndex) {
     let clickIdxStr;
     // clicked a mine, lost
     if (win === false) {
+        // reveal bomb locations
         clickIdxStr = indexToString(clickIndex);
         showBomb();
+        // turn bomb that was clicked into detonated symbol
         document.getElementById(`grid-${clickIdxStr}`).textContent = '💥';
+        // turn smiley into skull
+        resetButtonEl.innerText = '💀';
+        // display lose text
         winMessageDisplayEl.innerHTML= '<h3>You Lose</h3>';
     } else {
         let idxStr;
@@ -262,11 +271,15 @@ function render(clickIndex) {
                 document.getElementById(`grid-${idxStr}`).textContent = '';
             }})
         }
-        // revealed all safe tiles, won
-        if (win === true) {
-            showBomb();
-            winMessageDisplayEl.innerHTML= '<h3>You Win!</h3>';
-        }
+    // revealed all safe tiles, won
+    if (win === true) {
+        // reveal bomb locations
+        showBomb();
+        // turn smiley into cool smiley
+        resetButtonEl.innerText = '😎';
+        // display win text
+        winMessageDisplayEl.innerHTML= '<h3>You Win!</h3>';
+    }
 }
 
 // convert index number to string for string interpolation
