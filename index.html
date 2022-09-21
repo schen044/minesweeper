@@ -9,19 +9,24 @@
     <script defer src="js/main.js"></script>
 </head>
 <body>
-    <div class="title">Minesweeper</div>
-    <div class="controls">Controls
-        <div id="control-text">Control text</div>
+    <h1 class="title">Minesweeper</h1>
+    <div class="help">
+        <div id ="how-to">How To Play
+            <p>Your goal is to try to deduce the locations of the mines. You win by revealing all of the safe tiles. Tiles that are suspected to be mines can be flagged. However, if a mine is clicked, then you blow up and lose.</p>
+        </div>
+        <div id="control-text">Controls
+            <ul>
+                <li>Left click to reveal tile </li>
+                <li>Right click to flag tile</li>
+                <li>Click the smiley to reset the game</li>
+            </ul>
+        </div>
     </div>
     <div class="win"></div>
     <div class="game-board">
-        <div class="help">
-            <div>how to play</div>
-            <div>hints</div>
-        </div>
         <div class="menu">
             <div>flags</div>
-            <button id="reset">*v*</button>
+            <button id="reset">🙂</button>
             <div>time</div>
         </div>
         <div class="board">
@@ -52,6 +57,6 @@
             <div id="grid-24"></div>
         </div>
     </div>
-    <div class="footer">footer</div>
+    <div class="footer">created by schen044</div>
 </body>
 </html>
