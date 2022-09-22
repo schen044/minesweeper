@@ -18,7 +18,7 @@ class boardSquare {
 }
 
 /*----- state variables -----*/
-let firstClick, gameBoard, win;
+let firstClick, gameBoard, win, numFlags, winCount;
 
 /*----- cached elements  -----*/
 // win message
@@ -27,6 +27,8 @@ const winMessageDisplayEl = document.querySelector('.win');
 const resetButtonEl = document.getElementById('reset');
 // board element
 const boardEl = document.querySelector('.board');
+// flag count element
+const flagCountEl = document.querySelector('#flag-count');
 
 /*----- event listeners -----*/
 // listen for reset press
@@ -46,6 +48,8 @@ function initialize() {
     initBoardArray(numMines, boardSize)
     // reset win state
     win = null;
+    // reset flag count
+    numFlags = numMines;
     // reset win message
     winMessageDisplayEl.innerHTML= '';
     // reset reset button image
@@ -99,6 +103,11 @@ function handleLeftClick(evt) {
         firstClick = false;
         generateBoard(gameBoard, clickIdx);
     }
+    // click on flag
+    if (gameBoard[clickIdx].flagged) {
+        gameBoard[clickIdx].flagged = false;
+        numFlags++;
+    }
     // click on mine
     if (gameBoard[clickIdx].isMine) {
         win = false;
@@ -122,11 +131,20 @@ function flagTile(evt) {
     //console.log('right click clicked');
     evt.preventDefault();
     const clickIdx = Number(evt.target.id[5] + evt.target.id[6]);
+    // prevent first click flag
+    if (firstClick) {
+        return;
+    }
     // if tile is already flagged and not revealed, unflag tile
     if (gameBoard[clickIdx].flagged && !gameBoard[clickIdx].revealed)
     {
+        // add a flag to the count
+        numFlags++;
         gameBoard[clickIdx].flagged = false;
-    } else {
+    // if tile is revealed, don't do anything, otherwise:
+    } else if (!gameBoard[clickIdx].revealed) {
+        // remove a flag from the count
+        numFlags--
         gameBoard[clickIdx].flagged = true;
     }
     render(clickIdx);
@@ -271,6 +289,8 @@ function render(clickIndex) {
                 document.getElementById(`grid-${idxStr}`).textContent = '';
             }})
         }
+    // render flag count
+    flagCountEl.innerText = 'Flags:' + numFlags;
     // revealed all safe tiles, won
     if (win === true) {
         // reveal bomb locations
