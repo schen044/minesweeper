@@ -78,9 +78,14 @@ body {
 .menu {
     border: 2px  black solid;
     display: flex;
-    gap: 2px;
     height: 40px;
     padding: 5px;
+    width: 500px;
+    justify-content: space-around;
+}
+
+#reset {
+    align-items: center;
 }
 
 .board {
