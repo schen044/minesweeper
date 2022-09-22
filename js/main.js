@@ -18,7 +18,7 @@ class boardSquare {
 }
 
 /*----- state variables -----*/
-let firstClick, gameBoard, win, numFlags, winCount;
+let firstClick, gameBoard, win, numFlags, winCount = 0;
 
 /*----- cached elements  -----*/
 // win message
@@ -29,6 +29,8 @@ const resetButtonEl = document.getElementById('reset');
 const boardEl = document.querySelector('.board');
 // flag count element
 const flagCountEl = document.querySelector('#flag-count');
+// win count element
+const winCountEl = document.querySelector('#win-count');
 
 /*----- event listeners -----*/
 // listen for reset press
@@ -291,6 +293,8 @@ function render(clickIndex) {
         }
     // render flag count
     flagCountEl.innerText = 'Flags:' + numFlags;
+    // render win count
+    winCountEl.innerText = 'Wins:' + winCount;
     // revealed all safe tiles, won
     if (win === true) {
         // reveal bomb locations
@@ -329,6 +333,7 @@ function checkWin() {
     })
     if (total === gameBoard.length - numMines) {
         win = true;
+        winCount++;
     }
 }
 
