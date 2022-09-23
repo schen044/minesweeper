@@ -1,5 +1,5 @@
 <!-- <Your game's title>: A description of your game. Background info of the game is a nice touch. -->
-# * Minesweeper *
+# ![mine](/mine.png) Minesweeper ![mine](/mine.png)
 A clone of the beloved computer game that helped train users how to left and right click.
 
 This was created for Project 1 of General Assembly's Software Engineering Immersive course. I chose to do Minesweeper since it's a game I've been playing from the days of dial-up internet and AOL.
