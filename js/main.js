@@ -68,6 +68,8 @@ function handleResetClick() {
 // initialize board array
 function initBoardArray(numMines, size) {
     for (let i = 0; i < size * size; i++) {
+        let idxStr = indexToString(i)
+        document.getElementById(`grid-${idxStr}`).style.backgroundColor = "Lightgray";
         // create mine objects
         if (i < numMines) {
             gameBoard[i] = new boardTile(0, true, false, false, '');
