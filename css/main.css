@@ -82,6 +82,7 @@ body {
     padding: 5px;
     width: 500px;
     justify-content: space-around;
+    place-items: center;
 }
 
 .board-container {
