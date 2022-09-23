@@ -1,12 +1,19 @@
 <!-- <Your game's title>: A description of your game. Background info of the game is a nice touch. -->
-# ![mine](/mine.png) Minesweeper ![mine](/mine.png)
+# ![mine](/images/mine.png) Minesweeper ![mine](/images/mine.png)
 A clone of the beloved computer game that helped train users how to left and right click.
 
 This was created for Project 1 of General Assembly's Software Engineering Immersive course. I chose to do Minesweeper since it's a game I've been playing from the days of dial-up internet and AOL.
 
 <!-- Screenshot(s): Images of your actual game. -->
 ## Screenshots
-<!--- screenshots to be added after a few more css fixes --->
+Initial board state:
+![inital board state](/images/initial.png)
+Midgame:
+![midgame](/images/midgame.png)
+Win screen with sunglasses smiley:
+![won](/images/win.png)
+Lose screen:
+![lost](/images/lose.png)
 
 <!-- Technologies Used: List of the technologies used, e.g., JavaScript, HTML, CSS... -->
 ## Technologies Used
@@ -17,7 +24,6 @@ This was created for Project 1 of General Assembly's Software Engineering Immers
 <!-- Getting Started: In this section include the link to your deployed game and any instructions you deem important. -->
 ## Getting Started
 To play the game, click [here](https://schen044.github.io/minesweeper/).
-<br><br>
 
 ### How to Play
 Reveal all the safe squares to clear the board and win.
