@@ -257,6 +257,20 @@ function reveal(clickIdx) {
     }
 }
 
+// check if won
+function checkWin() {
+    let total = 0;
+    gameBoard.forEach(function(tile) {
+        if (tile.revealed) {
+            total++;
+        }
+    })
+    if (total === gameBoard.length - numMines) {
+        win = true;
+        winCount++;
+    }
+}
+
 // render game board to DOM
 function render(clickIndex) {
     // clicked a mine, lost
@@ -300,6 +314,8 @@ function renderTileInfo() {
         // show hints of tiles
         if (tile.revealed && (!tile.ismine || !tile.flagged)) {
             document.getElementById(`grid-${idxStr}`).textContent = gameBoard[idx].numAdjacent;
+            document.getElementById(`grid-${idxStr}`).style.backgroundColor = "Whitesmoke";
+            setNumColor(gameBoard[idx].numAdjacent, idxStr);
             // flag unflagged tile
         } else if (tile.flagged) {
             document.getElementById(`grid-${idxStr}`).textContent = '🚩';
@@ -332,17 +348,30 @@ function renderWin() {
     winMessageDisplayEl.innerHTML= '<h2>You Win!</h2>';
 }
 
-// check if won
-function checkWin() {
-    let total = 0;
-    gameBoard.forEach(function(tile) {
-        if (tile.revealed) {
-            total++;
-        }
-    })
-    if (total === gameBoard.length - numMines) {
-        win = true;
-        winCount++;
+// generate number colors
+function setNumColor(num, indexStr) {
+    switch(num) {
+        case 0:
+            return document.getElementById(`grid-${indexStr}`).textContent = '';
+        case 1:
+            return document.getElementById(`grid-${indexStr}`).style.color = "Blue";
+        case 2:
+            return document.getElementById(`grid-${indexStr}`).style.color = "Green";
+        case 3:
+            return document.getElementById(`grid-${indexStr}`).style.color = "Red";
+        case 4:
+            return document.getElementById(`grid-${indexStr}`).style.color = "Navy";
+        case 5:
+            return document.getElementById(`grid-${indexStr}`).style.color = "Maroon";
+        case 6:
+            return document.getElementById(`grid-${indexStr}`).style.color = "Teal";
+        case 7:
+            return document.getElementById(`grid-${indexStr}`).style.color = "Black";
+        case 8:
+            return document.getElementById(`grid-${indexStr}`).style.color = "Grey";
+        default:
+            console.log('out of board range');
+            break;
     }
 }
 
