@@ -23,6 +23,7 @@ body {
     grid-row-end: 2;
     text-align: center;
     padding-top: 1em;
+    font-size: 50px;
 }
 
 .help {
@@ -34,7 +35,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
 }
 
 #how-to {
@@ -60,7 +60,7 @@ body {
     text-align: center;
 }
 
-.game-board {
+.game {
     border: 2px black solid;
     grid-area: game;
     grid-row-start: 3;
@@ -75,8 +75,8 @@ body {
     place-items: center;
 }
 
-.menu {
-    border: 2px  black solid;
+.stats {
+    border: 2px black solid;
     display: flex;
     height: 40px;
     padding: 5px;
@@ -84,11 +84,7 @@ body {
     justify-content: space-around;
 }
 
-#reset {
-    align-items: center;
-}
-
-.board {
+.board-container {
     border: 2px black solid;
     display: grid;
     width: 500px;
@@ -100,128 +96,8 @@ body {
     text-align: center;
 }
 
-#grid-00 {
+.board {
     border: 2px black solid;
-    align-items: center;
-}
-
-#grid-01 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-02 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-03 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-04 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-05 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-06 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-07 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-08 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-09 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-10 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-11 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-12 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-13 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-14 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-15 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-16 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-17 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-18 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-19 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-20 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-21 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-22 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-23 {
-    border: 2px  black solid;
-    align-items: center;
-}
-
-#grid-24 {
-    border: 2px  black solid;
     align-items: center;
 }
 
