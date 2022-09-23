@@ -6,20 +6,19 @@ This was created for Project 1 of General Assembly's Software Engineering Immers
 
 <!-- Screenshot(s): Images of your actual game. -->
 ## Screenshots
---------------
 <!--- screenshots to be added after a few more css fixes --->
 
 <!-- Technologies Used: List of the technologies used, e.g., JavaScript, HTML, CSS... -->
 ## Technologies Used
---------------------
-* Javascript
-* CSS
-* HTML
+* Javascript to script the game
+* CSS to display the game and page
+* HTML to deliver the page content
 
 <!-- Getting Started: In this section include the link to your deployed game and any instructions you deem important. -->
 ## Getting Started
-------------------
 To play the game, click [here](https://schen044.github.io/minesweeper/).
+<br><br>
+
 ### How to Play
 Reveal all the safe squares to clear the board and win.
 
@@ -31,7 +30,6 @@ Left clicking on the smiley face at the top of the board will reset the game. Th
 
 <!-- Next Steps: Planned future enhancements (icebox items). -->
 ## Future Improvements
-----------------------
 - [ ] **Fix the infinite loop that freezes JS**
 - [ ] A timer that tracks how long it takes to clear the board
 - [ ] Different size boards and different number of mines to change difficulty
