@@ -259,33 +259,11 @@ function reveal(clickIdx) {
 
 // render game board to DOM
 function render(clickIndex) {
-    let clickIdxStr;
     // clicked a mine, lost
     if (win === false) {
-        // reveal bomb locations
-        clickIdxStr = indexToString(clickIndex);
-        showBomb();
-        // turn bomb that was clicked into detonated symbol
-        document.getElementById(`grid-${clickIdxStr}`).textContent = '💥';
-        // turn smiley into skull
-        resetButtonEl.innerText = '💀';
-        // display lose text
-        winMessageDisplayEl.innerHTML= '<h2>You Lose!</h2>';
+        renderLoss(clickIndex);
     } else {
-        let idxStr;
-        // show safe tiles
-        gameBoard.forEach(function(tile, idx) {
-            idxStr = indexToString(idx);
-            // show hints of tiles
-            if (tile.revealed && (!tile.ismine || !tile.flagged)) {
-                document.getElementById(`grid-${idxStr}`).textContent = gameBoard[idx].numAdjacent;
-                // flag unflagged tile
-            } else if (tile.flagged) {
-                document.getElementById(`grid-${idxStr}`).textContent = '🚩';
-                // remove flag
-            } else if (!tile.flagged) {
-                document.getElementById(`grid-${idxStr}`).textContent = '';
-            }})
+        renderTileInfo();
         }
     // render flag count
     flagCountEl.innerText = 'Flags:' + numFlags;
@@ -293,12 +271,7 @@ function render(clickIndex) {
     winCountEl.innerText = 'Wins:' + winCount;
     // revealed all safe tiles, won
     if (win === true) {
-        // reveal bomb locations
-        showBomb();
-        // turn smiley into cool smiley
-        resetButtonEl.innerText = '😎';
-        // display win text
-        winMessageDisplayEl.innerHTML= '<h2>You Win!</h2>';
+        renderWin();
     }
 }
 
@@ -316,6 +289,47 @@ function showBomb() {
             document.getElementById(`grid-${idxStr}`).textContent = '💣';
         }
     })
+}
+
+// render tiles
+function renderTileInfo() {
+    let idxStr;
+    // show safe tiles
+    gameBoard.forEach(function(tile, idx) {
+        idxStr = indexToString(idx);
+        // show hints of tiles
+        if (tile.revealed && (!tile.ismine || !tile.flagged)) {
+            document.getElementById(`grid-${idxStr}`).textContent = gameBoard[idx].numAdjacent;
+            // flag unflagged tile
+        } else if (tile.flagged) {
+            document.getElementById(`grid-${idxStr}`).textContent = '🚩';
+            // remove flag
+        } else if (!tile.flagged) {
+            document.getElementById(`grid-${idxStr}`).textContent = '';
+        }})
+}
+
+// loss render
+function renderLoss(idx) {
+    let clickIdxStr = indexToString(idx);
+    // reveal bomb locations
+    showBomb();
+    // turn bomb that was clicked into detonated symbol
+    document.getElementById(`grid-${clickIdxStr}`).textContent = '💥';
+    // turn smiley into skull
+    resetButtonEl.innerText = '💀';
+    // display lose text
+    winMessageDisplayEl.innerHTML= '<h2>You Lose!</h2>';
+}
+
+// win render
+function renderWin() {
+    // reveal bomb locations
+    showBomb();
+    // turn smiley into cool smiley
+    resetButtonEl.innerText = '😎';
+    // display win text
+    winMessageDisplayEl.innerHTML= '<h2>You Win!</h2>';
 }
 
 // check if won
