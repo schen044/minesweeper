@@ -2,15 +2,15 @@
 const numMines = 3;
 const boardSize = 5;
 // class to help construct each board square
-class boardSquare {
+class boardTile {
     constructor(numAdjacent, isMine, flagged, revealed, tileType) {
-        // hint value, number of mines adjacent to this square
+        // hint value, number of mines adjacent to this tile
         this.numAdjacent = numAdjacent;
-        // is a mine or safe square
+        // mine or safe tile
         this.isMine = isMine;
-        // is flagged as a mine
+        // flagged as a mine?
         this.flagged = flagged;
-        // reveal this square?
+        // reveal this tile?
         this.revealed = revealed;
         // corner, edge, center - used for calculating numAdjacent
         this.tileType = tileType;
@@ -26,7 +26,7 @@ const winMessageDisplayEl = document.querySelector('.win');
 // reset button
 const resetButtonEl = document.getElementById('reset');
 // board element
-const boardEl = document.querySelector('.board');
+const boardEl = document.querySelector('.board-container');
 // flag count element
 const flagCountEl = document.querySelector('#flag-count');
 // win count element
@@ -62,7 +62,6 @@ function initialize() {
 
 // reset
 function handleResetClick() {
-    //console.log("reset clicked");
     initialize();
 }
 
@@ -71,15 +70,15 @@ function initBoardArray(numMines, size) {
     for (let i = 0; i < size * size; i++) {
         // create mine objects
         if (i < numMines) {
-            gameBoard[i] = new boardSquare(0, true, false, false, '');
-            // create safe squares
+            gameBoard[i] = new boardTile(0, true, false, false, '');
+            // create safe tiles
         } else {
-            gameBoard[i] = new boardSquare(0, false, false, false, '');
+            gameBoard[i] = new boardTile(0, false, false, false, '');
         }
     }
 }
 
-// generate mines
+// generate board
 function generateBoard(arr, clickIdx) {
     // randomize locations
     shuffleBoard(arr);
@@ -88,20 +87,18 @@ function generateBoard(arr, clickIdx) {
         randomNum = Math.floor(Math.random() * clickIdx);
         swap(arr, clickIdx, randomNum);
     }
-    // sets the location tag for 
-    // each square to identify which rules
-    // to use when revealing tiles
+    // sets the location tag for each tile to
+    // identify which rules to use when revealing tiles
     addTileInfo(arr);
 }
 
-// left click during gameplay
+// left click during game
 function handleLeftClick(evt) {
     evt.preventDefault();
     // link the clicked square to index value to be used by board array
     const clickIdx = Number(evt.target.id[5] + evt.target.id[6]);
     // check if first click
     if (firstClick) {
-        //console.log('firstClick is false');
         firstClick = false;
         generateBoard(gameBoard, clickIdx);
     }
@@ -123,14 +120,10 @@ function handleLeftClick(evt) {
         // render to DOM
         render(clickIdx);
     }
-    // console log board
-    clog();
-    //console.log(evt, clickIdx);
 }
 
-// right click during gameplay
+// right click during game
 function flagTile(evt) {
-    //console.log('right click clicked');
     evt.preventDefault();
     const clickIdx = Number(evt.target.id[5] + evt.target.id[6]);
     // prevent first click flag
@@ -146,30 +139,30 @@ function flagTile(evt) {
     // if tile is revealed, don't do anything, otherwise:
     } else if (!gameBoard[clickIdx].revealed) {
         // remove a flag from the count
-        numFlags--
+        numFlags--;
         gameBoard[clickIdx].flagged = true;
     }
     render(clickIdx);
 }
 
 // randomize mine positions
-/* using the Fisher-Yates shuffle algorithm as found on stack overflow */
+/* used the Fisher-Yates shuffle algorithm as found on stack overflow */
 function shuffleBoard(arr) {
     for (let i = 0; i < arr.length; i++) {
-        // randomly generate the index of the square the
-        // current square will swap with
+        // randomly generate the index of the tile the
+        // current tile will swap with
         let randomIdx = Math.floor(Math.random() * i);
         // swap the two object positions
         swap(arr, i, randomIdx);
     }
 }
 
-// swap the position of two square objects
+// swap the position of two tile objects
 function swap(arr, index1, index2) {
     // temporary variable to store value so it's not lost
-    let tempSquare = arr[index1];
+    let tempTile = arr[index1];
     arr[index1] = arr[index2];
-    arr[index2] = tempSquare;
+    arr[index2] = tempTile;
 }
 
 // calculate adjacency hints and assign location types
@@ -248,11 +241,14 @@ function addAdjacent(adjArr) {
     })
 }
 
-// reveal adjacent squares
+// reveal adjacent tiles
 function reveal(clickIdx) {
+    // get adjacent tiles
     let adjArray = getAdjTile(clickIdx);
+    // only recurse if not revealed - prevent infinite loop
     if (!gameBoard[clickIdx].revealed) {
         gameBoard[clickIdx].revealed = true;
+        // only propagate if 0 adjacent mines
         if (gameBoard[clickIdx].numAdjacent === 0) {
             adjArray.forEach(function(adjIdx) {
                 reveal(adjIdx);
@@ -274,7 +270,7 @@ function render(clickIndex) {
         // turn smiley into skull
         resetButtonEl.innerText = '💀';
         // display lose text
-        winMessageDisplayEl.innerHTML= '<h3>You Lose</h3>';
+        winMessageDisplayEl.innerHTML= '<h2>You Lose!</h2>';
     } else {
         let idxStr;
         // show safe tiles
@@ -302,7 +298,7 @@ function render(clickIndex) {
         // turn smiley into cool smiley
         resetButtonEl.innerText = '😎';
         // display win text
-        winMessageDisplayEl.innerHTML= '<h3>You Win!</h3>';
+        winMessageDisplayEl.innerHTML= '<h2>You Win!</h2>';
     }
 }
 
@@ -327,9 +323,8 @@ function checkWin() {
     let total = 0;
     gameBoard.forEach(function(tile) {
         if (tile.revealed) {
-            total += 1;
+            total++;
         }
-        console.log(total);
     })
     if (total === gameBoard.length - numMines) {
         win = true;
@@ -338,7 +333,7 @@ function checkWin() {
 }
 
 // debugger for checking state of game board
-function clog() {
+function boardLog() {
     let mineStr = '';
     for (let i = 0; i < 25; i++) {
         if (gameBoard[i].isMine) {
