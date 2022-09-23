@@ -37,14 +37,14 @@ body {
     justify-content: center;
 }
 
-#how-to {
+.how-to {
     border: 2px  black solid;
     background-color: lightgrey;
     border-bottom: 1px black dashed;
     padding: 10px;
 }
 
-#control-text {
+.control-text {
     border: 2px  black solid;
     background-color: lightgrey;
     border-top: 1px black dashed;
@@ -78,11 +78,17 @@ body {
 .stats {
     border: 2px black solid;
     display: flex;
-    height: 40px;
+    height: 50px;
     padding: 5px;
     width: 500px;
     justify-content: space-around;
+    font-size: large;
     place-items: center;
+}
+
+button {
+    height: 35px;
+    font-size: large;
 }
 
 .board-container {
